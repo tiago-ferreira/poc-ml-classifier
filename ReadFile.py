@@ -10,4 +10,4 @@ def readZoo():
 
     X = Xdummies_df.values
     Y = Ydummies_df.values
-    return X,Y
+    return X,Y.ravel()
