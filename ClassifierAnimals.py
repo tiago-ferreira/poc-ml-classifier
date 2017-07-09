@@ -4,6 +4,8 @@ from Dados import Dados
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn import neighbors
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import LinearSVC
 
 class ClassifierAnimals(object):
 
@@ -32,3 +34,5 @@ if __name__ == '__main__':
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'AdaBoostClassifier')
   result = classifier.fitAndPredict(neighbors.KNeighborsClassifier(), data)
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'KNeighborsClassifier')
+  result = classifier.fitAndPredict(OneVsRestClassifier(LinearSVC(random_state = 0)), data)
+  classifier.calculateAccuracy(result, data.marcacoesTeste(), 'OneVsRestClassifier')
