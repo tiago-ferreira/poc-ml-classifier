@@ -2,6 +2,7 @@ from ReadFile import readZoo
 from PorcentagemConfig import PorcentagemConfig
 from Dados import Dados
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import AdaBoostClassifier
 
 class ClassifierAnimals(object):
 
@@ -10,14 +11,14 @@ class ClassifierAnimals(object):
       result = model.predict(data.dadosTeste())
       return result
 
-  def calculateAccuracy(self, result, data):
+  def calculateAccuracy(self, result, data, classifier_name):
     acertos = (result == data)
-    total_de_acertos = sum(acertos)
-    total_de_elementos = len(data)
-    taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
-    return taxa_de_acerto
+    taxa_de_acerto = 100.0 * sum(acertos) / len(data)
+    print "Taxa de acerto do {0}: {1}".format(classifier_name, taxa_de_acerto)
+
 
 if __name__ == '__main__':
+
   X, Y = readZoo()
 
   classifier = ClassifierAnimals()
@@ -25,7 +26,6 @@ if __name__ == '__main__':
   data = Dados(config, X, Y)
 
   result = classifier.fitAndPredict(MultinomialNB(), data)
-  taxa_de_acerto = classifier.calculateAccuracy(result, data.marcacoesTeste())
-
-  msg = "Taxa de acerto do {0}: {1}".format('Naive Bayes', taxa_de_acerto)
-  print(msg)
+  classifier.calculateAccuracy(result, data.marcacoesTeste(), 'Naive Bayes')
+  result = classifier.fitAndPredict(AdaBoostClassifier(), data)
+  classifier.calculateAccuracy(result, data.marcacoesTeste(), 'AdaBoostClassifier')
