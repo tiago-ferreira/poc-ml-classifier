@@ -6,6 +6,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn import neighbors
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
+from sklearn.multiclass import OneVsOneClassifier
 
 class ClassifierAnimals(object):
 
@@ -36,3 +37,5 @@ if __name__ == '__main__':
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'KNeighborsClassifier')
   result = classifier.fitAndPredict(OneVsRestClassifier(LinearSVC(random_state = 0)), data)
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'OneVsRestClassifier')
+  result = classifier.fitAndPredict(OneVsOneClassifier(LinearSVC(random_state = 0)), data)
+  classifier.calculateAccuracy(result, data.marcacoesTeste(), 'OneVsOneClassifier')
