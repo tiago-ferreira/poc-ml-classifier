@@ -3,6 +3,7 @@ from PorcentagemConfig import PorcentagemConfig
 from Dados import Dados
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn import neighbors
 
 class ClassifierAnimals(object):
 
@@ -29,3 +30,5 @@ if __name__ == '__main__':
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'Naive Bayes')
   result = classifier.fitAndPredict(AdaBoostClassifier(), data)
   classifier.calculateAccuracy(result, data.marcacoesTeste(), 'AdaBoostClassifier')
+  result = classifier.fitAndPredict(neighbors.KNeighborsClassifier(), data)
+  classifier.calculateAccuracy(result, data.marcacoesTeste(), 'KNeighborsClassifier')
